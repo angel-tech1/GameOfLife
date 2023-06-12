@@ -3,18 +3,14 @@ use std::io::Write;
 fn main() {
     let mut grid = [[false; 100]; 100];
 
-    // Initialize the grid with a glider
-    grid[30][20] = true;
-    grid[31][21] = true;
-    grid[29][22] = true;
-    grid[32][22] = true;
-
     // Adding some random cells
+    grid[60][41] = true;
     grid[60][40] = true;
     grid[61][41] = true;
     grid[59][42] = true;
     grid[62][42] = true;
     grid[68][30] = true;
+    grid[68][31] = true;
     grid[61][51] = true;
     grid[19][62] = true;
     grid[32][02] = true;
@@ -24,7 +20,7 @@ fn main() {
         for row in grid {
             for cell in row {
                 if cell {
-                    print!("◉");
+                    print!("😶");
                 } else {
                     print!("・");
                 }
@@ -61,7 +57,7 @@ fn main() {
 fn count_alive_neighbors(grid: &[[bool; 100]], i: usize, j: usize) -> u8 {
     let mut alive_neighbors = 0;
 
-    let left_limit = -1isize;
+    let left_limit = -1_isize;
 
     // Count the number of alive neighbors
     for x_offset in left_limit..2 {
@@ -78,12 +74,9 @@ fn count_alive_neighbors(grid: &[[bool; 100]], i: usize, j: usize) -> u8 {
                 continue; // out of boundaries
             }
 
-            alive_neighbors += if grid[i2][j2] { 1 } else { 0 };
+            let alive = if grid[i2][j2] { 1 } else { 0 };
+            alive_neighbors += alive;
         }
-    }
-
-    if alive_neighbors > 0 {
-        println!("Position ({i},{j}) has {alive_neighbors} neighbors")
     }
 
     return alive_neighbors;
